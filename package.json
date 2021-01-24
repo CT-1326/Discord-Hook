@@ -1,0 +1,22 @@
+{
+  "name": "discord_hook",
+  "version": "1.0.0",
+  "description": "Auto alert about new post",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CT-1326/Discord_Hook.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CT-1326/Discord_Hook/issues"
+  },
+  "homepage": "https://github.com/CT-1326/Discord_Hook#readme",
+  "dependencies": {
+    "discord-webhook-node": "^1.1.8"
+  }
+}
