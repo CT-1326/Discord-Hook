@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/CT-1326/Discord_Hook#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "discord-webhook-node": "^1.1.8"
   }
 }
