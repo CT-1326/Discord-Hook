@@ -2,8 +2,7 @@ const {Webhook, MessageBuilder} = require('discord-webhook-node');
 const axios = require('axios');
 require('date-utils');
 const hook = new Webhook(
-    "https://discord.com/api/webhooks/800281509335400448/YphrCNb2ocEfbim9Hn1Jl4ei4M" +
-    "T5xGzGoxhiFGE3Lw0YdkB4B9ELo3iVtfNHbdIYWBmG"
+    "https://discord.com/api/webhooks/806848252367601665/T-JrCe_oizDPJfgrME2qrHHmTpizuzKwuEDwHkpmm33RvwxU_VRi3ZMF_antf2S6JLJh"
 );
 
 let config = {
