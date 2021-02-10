@@ -21,13 +21,15 @@ axios(config)
                 .then(img => {
                     const imgDate = img.headers['last-modified'];
                     // console.log(imgDate);
-                    const today = new Date.yesterday().toFormat('DDD, DD MMM YYYY');
+                    const today = new Date
+                        .yesterday()
+                        .toFormat('DDD, DD MMM YYYY');
                     // console.log(today);
                     if (imgDate.indexOf(today) != -1) {
                         const embed = new MessageBuilder()
                             .setTitle('새로운 공모전이 올라오다!')
                             .setAuthor("알림봇", 'https://www.campuspick.com/favicon.ico')
-                            .setURL(getData[index].image)
+                            .setURL('https://www.campuspick.com/contest/view?id=' + getData[index].id)
                             .setColor('#00b0f4')
                             .setFooter('올라온 시간', 'https://www.campuspick.com/favicon.ico')
                             .setTimestamp();
