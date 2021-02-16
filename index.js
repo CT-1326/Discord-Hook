@@ -12,8 +12,9 @@ let config = {
 
 axios(config)
     .then(function (response) {
-        // console.log(JSON.stringify(response.data)); console.log(getData);
+        // console.log(JSON.stringify(response.data));
         let getData = response.data.result.activities;
+        // console.log(getData);
         for (let index = 0; index < getData.length; index++) {
             // console.log(getData[index].image);
             axios
@@ -38,8 +39,11 @@ axios(config)
                     } else {
                         console.log('Not today!');
                     }
+                })
+                .catch(function (e) {
+                    console.log(e);
                 });
-        }
+            }
     })
     .catch(function (error) {
         console.log(error);
