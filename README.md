@@ -18,5 +18,8 @@ https://github.com/JerrySievert/date-utils
 https://github.com/matthew1232/discord-webhook-node
 
     Discord webhook sending
+https://github.com/cheeriojs/cheerio
+    
+    Crawling web
 # License
 This project is licensed under the MIT License - see the [Discord_Hook/LICENSE](LICENSE)
