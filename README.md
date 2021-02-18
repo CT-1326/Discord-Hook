@@ -1,5 +1,5 @@
 # Discord_Hook
-Auto alert about new post with discord webHook
+Auto alert with discord webHook
 # Get Start
     > npm install
 
