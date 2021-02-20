@@ -11,19 +11,35 @@ axios
         // console.log(html.data);
         const $ = cheerio.load(html.data);
         client.get('lastID', (err, reply) => {
+            let index;
             let lastID = reply;
-            console.log(lastID);
+            console.log('redis value: ', lastID);
+            const tableLength = $(
+                '#board_list > div > div.board_main.theme_default > table > tbody > tr'
+            ).length;
+            for (index = 1; index <= tableLength; index++) {
+                let test = $(
+                    '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
+                    'd(' + index + ')'
+                )
+                    .attr()
+                    .class;
+                if (test == 'table_body') {
+                    break;
+                }
+            }
+            // console.log(index);
             const getID = $(
                 "#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil" +
-                "d(7) > td.id"
+                "d(" + index + ") > td.id"
             )
                 .text()
                 .replace(/\s/g, '');
-            // console.log(getID);
+            console.log('lastID value: ', getID);
             if (lastID != getID) {
                 const title = $(
                     "#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil" +
-                    "d(7) > td.subject > div > a.deco"
+                    "d(" + index + ") > td.subject > div > a.deco"
                 ).text();
                 // console.log(title);
                 const embed = new MessageBuilder()
