@@ -13,18 +13,18 @@ axios
         client.get('lastID', (err, reply) => {
             let index;
             let lastID = reply;
-            console.log('redis value: ', lastID);
+            console.log('lastID value: ', lastID);
             const tableLength = $(
                 '#board_list > div > div.board_main.theme_default > table > tbody > tr'
             ).length;
             for (index = 1; index <= tableLength; index++) {
-                let test = $(
+                let tableName = $(
                     '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
                     'd(' + index + ')'
                 )
                     .attr()
                     .class;
-                if (test == 'table_body') {
+                if (tableName == 'table_body') {
                     break;
                 }
             }
@@ -35,7 +35,7 @@ axios
             )
                 .text()
                 .replace(/\s/g, '');
-            console.log('lastID value: ', getID);
+            console.log('getID value: ', getID);
             if (lastID != getID) {
                 const title = $(
                     "#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil" +
