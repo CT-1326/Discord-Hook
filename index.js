@@ -41,7 +41,7 @@ axios(config)
                     console.log('Not today!');
                 }
             }
-            console.log(check);
+            // console.log(check);
             if (check) {
                 const redisValue = JSON.stringify(arr);
                 client.set('idKey', redisValue);
