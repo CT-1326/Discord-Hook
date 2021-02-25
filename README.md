@@ -9,15 +9,14 @@ Auto alert with discord webHook
 
     Heroku Scheduler
 # Open-source libraries
-https://github.com/axios/axios
-
-    HTTP Request
-https://github.com/JerrySievert/date-utils
-
-    Date object
 https://github.com/matthew1232/discord-webhook-node
 
     Discord webhook sending
+    
+https://github.com/axios/axios
+
+    HTTP Request
+
 https://github.com/cheeriojs/cheerio
     
     Crawling web
