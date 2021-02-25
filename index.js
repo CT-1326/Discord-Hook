@@ -1,7 +1,11 @@
 const {Webhook, MessageBuilder} = require('discord-webhook-node');
 const axios = require('axios');
-require('date-utils');
 const hook = new Webhook("YOUR WEBHOOK URL");
+const redis = require('redis');
+const client = redis.createClient(
+);
+const hook = new Webhook(
+);
 
 let config = {
     method: 'post',
@@ -15,35 +19,35 @@ axios(config)
         // console.log(JSON.stringify(response.data));
         let getData = response.data.result.activities;
         // console.log(getData);
-        for (let index = 0; index < getData.length; index++) {
-            // console.log(getData[index].image);
-            axios
-                .get(getData[index].image)
-                .then(img => {
-                    const imgDate = img.headers['last-modified'];
-                    // console.log(imgDate);
-                    const today = new Date
-                        .yesterday()
-                        .toFormat('DDD, DD MMM YYYY');
-                    // console.log(today);
-                    if (imgDate.indexOf(today) != -1) {
-                        const embed = new MessageBuilder()
-                            .setTitle('새로운 공모전이 올라오다!')
-                            .setAuthor("알림봇", 'https://www.campuspick.com/favicon.ico')
-                            .setURL('https://www.campuspick.com/contest/view?id=' + getData[index].id)
-                            .setColor('#00b0f4')
-                            .setFooter('올라온 시간', 'https://www.campuspick.com/favicon.ico')
-                            .setTimestamp();
+        let check = false;
+        let arr = [];
+        client.get('idKey', (err, params) => {
+            // console.log(params);
+            for (let index = 0; index < getData.length; index++) {
+                // console.log(getData[index].id);
+                arr.push(getData[index].id);
+                if (params.indexOf(getData[index].id) == -1) {
+                    check = true;
+                    const embed = new MessageBuilder()
+                        .setTitle('새로운 공모전이 올라오다!')
+                        .setAuthor("알림봇", 'https://www.campuspick.com/favicon.ico')
+                        .setURL('https://www.campuspick.com/contest/view?id=' + getData[index].id)
+                        .setColor('#00b0f4')
+                        .setFooter('올라온 시간', 'https://www.campuspick.com/favicon.ico')
+                        .setTimestamp();
 
-                        hook.send(embed);
-                    } else {
-                        console.log('Not today!');
-                    }
-                })
-                .catch(function (e) {
-                    console.log(e);
-                });
+                    hook.send(embed);
+                } else {
+                    console.log('Not today!');
+                }
             }
+            console.log(check);
+            if (check) {
+                const redisValue = JSON.stringify(arr);
+                client.set('idKey', redisValue);
+            }
+            client.quit();
+        });
     })
     .catch(function (error) {
         console.log(error);
