@@ -8,6 +8,8 @@ Auto alert with discord webHook
     NodeJS V15.2.0
 
     Heroku Scheduler
+    
+    Heroku Redis
 # Open-source libraries
 https://github.com/matthew1232/discord-webhook-node
 
@@ -20,5 +22,9 @@ https://github.com/axios/axios
 https://github.com/cheeriojs/cheerio
     
     Crawling web
+    
+https://github.com/NodeRedis/node-redis
+
+    NodeJS Redis
 # License
 This project is licensed under the MIT License - see the [Discord_Hook/LICENSE](LICENSE)
