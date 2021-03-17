@@ -21,9 +21,9 @@ axios(config)
         let check = false;
         let arr = [];
         client.get('idKey', (err, params) => {
-            // console.log(params);
+            console.log('Redis idKey value:', params);
             for (let index = 0; index < getData.length; index++) {
-                // console.log(getData[index].id);
+                console.log('gongmo ID value:', getData[index].id);
                 arr.push(getData[index].id);
                 if (params.indexOf(getData[index].id) == -1) {
                     check = true;
@@ -34,7 +34,6 @@ axios(config)
                         .setColor('#00b0f4')
                         .setFooter('올라온 시간', 'https://www.campuspick.com/favicon.ico')
                         .setTimestamp();
-
                     hook.send(embed);
                 } else {
                     console.log('Not today!');
