@@ -37,7 +37,7 @@ axios
                         check = true;
                         const title = $(
                             '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
-                            'd(' + index + ') > td.subject > div > a'
+                            'd(' + index + ') > td.subject > div > a.deco'
                         ).text();
                         // console.log(title);
                         const embed = new MessageBuilder()
