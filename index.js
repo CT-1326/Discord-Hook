@@ -1,8 +1,7 @@
 const {Webhook, MessageBuilder} = require('discord-webhook-node');
 const axios = require('axios');
 const redis = require('redis');
-const client = redis.createClient(
-);
+const client = redis.createClient(process.env.REDIS_URL);
 const hook = new Webhook(
 );
 

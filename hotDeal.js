@@ -3,7 +3,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const hook = new Webhook("YOUR WEBHOOK URL");
 const redis = require('redis');
-const client = redis.createClient('YOUR redis URL');
+const client = redis.createClient(process.env.REDIS_URL);
 
 axios
     .get('https://bbs.ruliweb.com/market/board/1020')
