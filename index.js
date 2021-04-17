@@ -16,7 +16,7 @@ axios(config)
     .then(function (response) {
         // console.log(JSON.stringify(response.data));
         let getData = response.data.result.activities;
-        // console.log(getData);
+        console.log(getData);
         let check = false;
         let arr = [];
         client.get('idKey', (err, params) => {
