@@ -9,7 +9,8 @@ let config = {
     method: 'post',
     url: 'https://api.campuspick.com/find/activity/list?target=1&limit=10&offset=0&categ' +
             'oryId=108',
-    headers: {}
+    headers: {},
+    timeout: 1000
 };
 
 axios(config)
