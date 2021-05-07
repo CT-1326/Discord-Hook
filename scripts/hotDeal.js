@@ -7,7 +7,7 @@ const hook = new Webhook(
 );
 
 axios
-    .get('https://bbs.ruliweb.com/market/board/1020', {timeout: 1000})
+    .get('https://bbs.ruliweb.com/market/board/1020', {timeout: 3000})
     .then(function (html) {
         // console.log(html.data);
         const $ = cheerio.load(html.data);
