@@ -4,9 +4,7 @@ const cheerio = require('cheerio');
 const redis = require('redis');
 const client = redis.createClient(process.env.REDIS_URL);
 require('dotenv').config();
-const hook = new Webhook(
-    process.env.hotDeal_URL
-);
+const hook = new Webhook(process.env.hotDeal_URL);
 
 axios
     .get('https://bbs.ruliweb.com/market/board/1020', {timeout: 3000})
