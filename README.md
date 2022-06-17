@@ -1,4 +1,4 @@
-# Discord_Hook
+# Discord-Hook
 Auto alert with discord webHook
 # Get Start
     > npm install
