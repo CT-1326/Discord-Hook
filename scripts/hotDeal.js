@@ -26,7 +26,8 @@ axios
                 )
                     .attr()
                     .class; // 게시물의 class 명칭을 저장
-                if (tableName == 'table_body') { // 해당 명칭이 업로드 순으로 배치되는 게시물의 class 명칭일 경우
+                // console.log(tableName);
+                if (tableName === 'table_body blocktarget') { // 해당 명칭이 업로드 순으로 배치되는 게시물의 class 명칭일 경우
                     let checkID = $(
                         '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
                         'd(' + index + ') > td.id'
