@@ -17,13 +17,13 @@ axios(config)
     .then(function (response) {
         // console.log(JSON.stringify(response.data));
         let getData = response.data.result.activities; // 크롤링 결과 값을 변수 처리
-        console.log(getData);
+        console.log('Crawling gongmo data : ', getData);
         let check = false; // 새로운 게시물이 포함되었는지를 구분하는 Flag 값 선언
         let arr = []; // 크롤링으로 추출된 게시물 id 값 저장 배열 선언
         client.get('idKey', (err, params) => { // redis 호출 및 시작
-            console.log('Redis idKey value:', params);
+            console.log('Gongmo redis value:', params);
             for (let index = 0; index < getData.length; index++) { // 크롤링으로 추출된 게시물 개수 만큼 반복문 수행
-                console.log('gongmo ID value:', getData[index].id);
+                // console.log('gongmo ID value:', getData[index].id);
                 arr.push(getData[index].id); // 크롤링 게시물 id 값을 배열에 저장
                 if (params.indexOf(getData[index].id) == -1) { // 현재의 게시물 id 값이 redis에 저장되지 않은 값일 경우
                     check = true; // 새로운 게시물이 있음으로 식별
@@ -39,14 +39,14 @@ axios(config)
                     console.log('Not today!');
                 }
             }
-            // console.log(check);
-            if (check) { // 새로운 게시물이 있었음을 식별하였다면
+            if (check === true) { // 새로운 게시물이 있었음을 식별하였다면
+                console.log('New gongmo redis data set!');
                 const redisValue = JSON.stringify(arr);
                 client.set('idKey', redisValue); // redis의 현재 DB 상태를 저장한 게시물 id 값 배열 내용으로 갱신
             }
             client.quit(); // redis 종료
         });
     })
-    .catch(function (error) {
-        console.log(error);
+    .catch(function (err) {
+        console.error(err);
     });

@@ -13,11 +13,12 @@ axios
         const $ = cheerio.load(html.data); // 크롤링 결과 값을 하나의 변수로 처리 및 활용
         const arr = []; // 크롤링으로 추출된 게시물 id 값 저장 배열 선언
         let check = false; // 새로운 게시물이 포함되었는지를 구분하는 Flag 값 선언
-        client.get('lastID', (err, reply) => { // redis 호출 및 시작
-            console.log('Redis lastID value:', reply);
+        client.get('lastID', (err, params) => { // redis 호출 및 시작
+            console.log('Hotdeal redis value:', params);
             const tableLength = $(
                 '#board_list > div > div.board_main.theme_default > table > tbody > tr'
             ).length; // 크롤링된 게시판의 게시물 개수를 저장
+            console.log('Crawling hotdeal data length : ', tableLength);
             for (let index = 1; index <= tableLength; index++) { // 개수 만큼 반복문 수행
                 let tableName = $(
                     '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
@@ -34,7 +35,7 @@ axios
                         .replace(/\s/g, ''); // 게시물의 id 값을 추출
                     console.log('Hotdeal ID value:', checkID);
                     arr.push(checkID); // 배열에 저장
-                    if (reply.indexOf(checkID) == -1) { // 해당 id 값이 redis에 저장되지 않은 값일 경우
+                    if (params.indexOf(checkID) == -1) { // 해당 id 값이 redis에 저장되지 않은 값일 경우
                         check = true; // 새로운 게시물이 있음으로 식별
                         const title = $(
                             '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
@@ -59,14 +60,14 @@ axios
                 }
             }
             // console.log(arr);
-            if (check) { // 새로운 게시물이 있었음을 식별하였다면
+            if (check === true) { // 새로운 게시물이 있었음을 식별하였다면
+                console.log('New hotdeal redis data set!');
                 const redisValue = JSON.stringify(arr);
                 client.set('lastID', redisValue); // redis의 현재 DB 상태를 저장한 게시물 id 값 배열 내용으로 갱신
             }
             client.quit(); // redis 종료
         });
     })
-    .catch(function (e) {
-        console.log(e);
-        process.exit();
+    .catch(function (err) {
+        console.error(err);
     });
