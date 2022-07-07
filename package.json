@@ -4,7 +4,7 @@
   "description": "Auto alert about new post",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "push" : "git push -u origin master"
   },
   "repository": {
     "type": "git",
