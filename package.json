@@ -20,9 +20,8 @@
         "axios": "^0.21.1",
         "cheerio": "^1.0.0-rc.5",
         "discord-webhook-node": "^1.1.8",
-        "dotenv": "^10.0.0",
         "express": "^4.18.2",
-        "node-schedule": "^2.1.0",
-        "redis": "^3.0.2"
+        "ioredis": "^5.2.4",
+        "node-schedule": "^2.1.0"
     }
 }

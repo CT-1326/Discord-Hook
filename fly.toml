@@ -10,7 +10,6 @@ processes = []
 
 [env]
   PORT = "8080"
-  drug_URL = "https://discord.com/api/webhooks/831097381834850355/Yov4252rZX2vywmdYJLJALLXL5F51oyNNXGlh-vznx-_m8-H9v5EJ3taDdcLIQG2yAr-"
 
 [experimental]
   allowed_public_ports = []
