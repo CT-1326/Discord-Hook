@@ -3,8 +3,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 const schedule = require('node-schedule');
 const drug = require('./scripts/drug');
-// const gongmo = require('./scripts/gongmo');
-// const hotDeal = require('./scripts/hotDeal');
+const gongmo = require('./scripts/gongmo');
+const hotDeal = require('./scripts/hotDeal');
 
 app.get([
     "/", "/:name"
@@ -26,11 +26,11 @@ app.listen(port, () => {
         drug();
     });
 
-    // schedule.scheduleJob('* * * * *', function () {
-    //     hotDeal();
-    // });
+    schedule.scheduleJob('*/10 * * * *', function () {
+        hotDeal();
+    });
 
-    // schedule.scheduleJob('*/5 * * * *', function () {
-    //     gongmo();
-    // });
+    schedule.scheduleJob('0 * * * *', function () {
+        gongmo();
+    });
 });
