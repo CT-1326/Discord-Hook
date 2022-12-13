@@ -5,11 +5,6 @@ on:
       - main
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  DRUG_URL : ${{secrets.DRUG_URL}}
-  GONGMO_URL : ${{secrets.GONGMO_URL}}
-  HOTDEAL_URL : ${{secrets.HOTDEAL_URL}}
-  REDIS_URL : ${{secrets.REDIS_URL}}
-  TEST : ${{secrets.TEST}}
 jobs:
   deploy:
       name: Deploy app
