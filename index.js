@@ -19,7 +19,7 @@ app.get([
 });
 
 app.listen(port, () => {
-    schedule.scheduleJob('0 0 7 * * *', function () {
+    schedule.scheduleJob('0 7 * * *', function () {
         hook.setUsername('Drug BOT');
         const embed = new MessageBuilder()
             .setTitle('약 먹자')
@@ -27,7 +27,7 @@ app.listen(port, () => {
             .setTimestamp(); // 지정된 시간에 메시지가 도착하였는지를 확인하기 위한 시간대 출력
         hook.send(embed);
     });
-    schedule.scheduleJob('0 0 20 * * *', function () {
+    schedule.scheduleJob('0 20 * * *', function () {
         hook.setUsername('Drug BOT');
         const embed = new MessageBuilder()
             .setTitle('약 먹자')
