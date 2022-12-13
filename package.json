@@ -4,7 +4,7 @@
     "description": "Auto alert about new post",
     "main": "index.js",
     "scripts": {
-        "push": "git push -u origin origin"
+        "push": "git push -f origin"
     },
     "repository": {
         "type": "git",
@@ -20,7 +20,6 @@
         "axios": "^0.21.1",
         "cheerio": "^1.0.0-rc.5",
         "discord-webhook-node": "^1.1.8",
-        "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "ioredis": "^5.2.4",
         "node-schedule": "^2.1.0"

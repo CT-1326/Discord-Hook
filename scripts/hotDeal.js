@@ -1,5 +1,4 @@
 const {Webhook, MessageBuilder} = require('discord-webhook-node');
-require('dotenv').config()
 const axios = require('axios');
 const cheerio = require('cheerio');
 const hook = new Webhook(process.env.HOTDEAL_URL); // discord-webhook-node 라이브러리의 핫딜 채널 webhook 변수

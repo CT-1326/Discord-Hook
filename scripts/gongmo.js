@@ -1,5 +1,4 @@
 const {Webhook, MessageBuilder} = require('discord-webhook-node');
-require('dotenv').config()
 const axios = require('axios');
 const hook = new Webhook(process.env.GONGMO_URL); // discord-webhook-node 라이브러리의 공모전 채널 webhook 변수
 const Redis = require("ioredis");

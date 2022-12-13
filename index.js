@@ -5,7 +5,6 @@ const schedule = require('node-schedule');
 const gongmo = require('./scripts/gongmo');
 const drug = require('./scripts/drug');
 const hotDeal = require('./scripts/hotDeal');
-require('dotenv').config()
 
 app.get([
     "/", "/:name"
@@ -32,7 +31,6 @@ app.listen(port, () => {
     });
 
     schedule.scheduleJob('*/10 * * * *', function () {
-        console.log(process.env.TEST);
         hotDeal();
     });
 });

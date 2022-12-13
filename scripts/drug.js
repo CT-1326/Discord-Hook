@@ -1,5 +1,4 @@
 const {Webhook, MessageBuilder} = require('discord-webhook-node');
-require('dotenv').config()
 const hook = new Webhook(process.env.DRUG_URL); //  discord-webhook-node 라이브러리의 webhook 변수 생성
 
 module.exports = function () {
