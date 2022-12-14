@@ -7,9 +7,9 @@ Auto alert with discord webHook
 # Prerequisites
     NodeJS V15.2.0
 
-    Heroku Scheduler
+    Fly.io Node.js
     
-    Heroku Redis
+    Upstash Redis
 # Open-source libraries
 https://github.com/matthew1232/discord-webhook-node
 
