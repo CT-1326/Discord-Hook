@@ -1,9 +1,9 @@
 const {Webhook, MessageBuilder} = require('discord-webhook-node');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const hook = new Webhook(process.env.HOTDEAL_URL); // discord-webhook-node 라이브러리의 핫딜 채널 webhook 변수
+const hook = new Webhook(process.env.HOTDEAL_URL); // 핫딜 채널 webhook 경로 등록
 const Redis = require("ioredis");
-let client = new Redis(process.env.REDIS_URL);
+const client = new Redis(process.env.REDIS_URL); // upstash redis 경로 등록
 
 module.exports = function () {
     axios
@@ -13,7 +13,8 @@ module.exports = function () {
             const $ = cheerio.load(html.data);
             const arr = [];
             let check = false; /// 크롤링 결과가 새로운 게시물을 포함하였는지를 확인하는 Flag 값
-            client.get('hotdealData', (err, params) => { // 핫딜 관련 redis 호출 및 시작
+            /* 핫딜 데이터 redis 호출 */
+            client.get('hotdealData', (err, params) => {
                 // console.log('Hotdeal redis value:', params);
                 /* 크롤링된 게시판의 게시물 개수만큼 작업을 수행 */
                 const tableLength = $(
@@ -38,7 +39,7 @@ module.exports = function () {
                             .text()
                             .replace(/\s/g, '');
                         // console.log('Hotdeal ID value:', checkID);
-                        arr.push(checkID);
+                        arr.push(checkID); // 게시물 id 값을 따로 배열 처리
                         if (params.indexOf(checkID) == -1) {
                             check = true;
                             const title = $(
@@ -63,8 +64,7 @@ module.exports = function () {
                         }
                     }
                 }
-
-                /* 새로운 게시물이 있었음을 식별했다면 공모전 관련 redis 값을 새로운 배열 값으로 저장 및 종료 */
+                /* 새로운 게시물이 있었음을 식별했다면 핫딜 데이터 redis 값을 따로 처리한 배열 값으로 저장 및 연결 종료 */
                 if (check === true) {
                     console.log('New hotdeal redis data set!');
                     const redisValue = JSON.stringify(arr);

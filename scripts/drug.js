@@ -1,5 +1,5 @@
 const {Webhook, MessageBuilder} = require('discord-webhook-node');
-const hook = new Webhook(process.env.DRUG_URL); //  discord-webhook-node 라이브러리의 webhook 변수 생성
+const hook = new Webhook(process.env.DRUG_URL); // 약 채널 webhook 경로 등록
 
 module.exports = function () {
     hook.setUsername('Drug BOT');

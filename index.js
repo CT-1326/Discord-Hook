@@ -19,6 +19,7 @@ app.get([
 });
 
 app.listen(port, () => {
+    /* 리스너에 시간대별 스케줄링 작성 */
     schedule.scheduleJob('0 22 * * *', function () {
         drug();
     });

@@ -1,6 +1,6 @@
 const {Webhook, MessageBuilder} = require('discord-webhook-node');
 const axios = require('axios');
-const hook = new Webhook(process.env.GONGMO_URL); // discord-webhook-node 라이브러리의 공모전 채널 webhook 변수
+const hook = new Webhook(process.env.GONGMO_URL); // 공모전 채널 webhook 경로 등록
 const Redis = require("ioredis");
 let client = new Redis(process.env.REDIS_URL);
 
@@ -20,7 +20,8 @@ module.exports = function () {
             // console.log('Crawling gongmo data : ', getData);
             let check = false; // 크롤링 결과가 새로운 게시물을 포함하였는지를 확인하는 Flag 값
             let arr = [];
-            client.get('gongmoData', (err, params) => { // 공모전 알림 관련 redis 호출 및 시작
+            /* 공모전 데이터 redis 호출 */
+            client.get('gongmoData', (err, params) => {
                 // console.log('Gongmo redis value :', params);
                 for (let index = 0; index < getData.length; index++) {
                     // console.log('gongmo ID value:', getData[index].id);
@@ -38,7 +39,7 @@ module.exports = function () {
                         hook.send(embed);
                     }
                 }
-                /* 새로운 게시물이 있었음을 식별했다면 공모전 관련 redis 값을 새로운 배열 값으로 저장 및 종료 */
+                /* 새로운 게시물이 있었음을 식별했다면 공모전 데이터 redis 값을 따로 처리한 배열 값으로 저장 및 종료 */
                 if (check === true) {
                     console.log('New gongmo redis data set!');
                     const redisValue = JSON.stringify(arr);
