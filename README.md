@@ -22,9 +22,13 @@ https://github.com/axios/axios
 https://github.com/cheeriojs/cheerio
     
     Crawling web
-    
-https://github.com/NodeRedis/node-redis
+        
+https://github.com/luin/ioredis
 
-    NodeJS Redis
+    Node.js Redis
+    
+https://github.com/node-schedule/node-schedule
+
+    Node.js Scheduler
 # License
 This project is licensed under the MIT License - see the [Discord_Hook/LICENSE](LICENSE)
