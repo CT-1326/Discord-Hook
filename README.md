@@ -7,9 +7,9 @@ Auto alert with discord webHook
 # Prerequisites
     NodeJS V15.2.0
 
-    Fly.io Node.js
+    Fly.io
     
-    Upstash Redis
+    Upstash-Redis
 # Open-source libraries
 https://github.com/matthew1232/discord-webhook-node
 
