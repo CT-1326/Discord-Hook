@@ -31,7 +31,7 @@ app.listen(port, () => {
         hotDeal();
     });
 
-    schedule.scheduleJob('0 * * * *', function () {
-        gongmo();
-    });
+    // schedule.scheduleJob('0 * * * *', function () {
+    //     gongmo();
+    // });
 });
