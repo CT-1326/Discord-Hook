@@ -4,7 +4,8 @@
     "description": "Auto alert about new post",
     "main": "index.js",
     "scripts": {
-        "push": "git push -f origin"
+        "push": "git push -f origin",
+        "start": "nodemon index"
     },
     "repository": {
         "type": "git",
@@ -20,8 +21,12 @@
         "axios": "^0.21.1",
         "cheerio": "^1.0.0-rc.5",
         "discord-webhook-node": "^1.1.8",
+        "dotenv": "^16.4.5",
         "express": "^4.18.2",
-        "ioredis": "^5.2.4",
-        "node-schedule": "^2.1.0"
+        "node-schedule": "^2.1.0",
+        "nodemon": "^3.1.4"
+    },
+    "devDependencies": {
+        "@flydotio/dockerfile": "^0.5.7"
     }
 }
