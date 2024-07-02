@@ -7,17 +7,16 @@ const drug = require('./scripts/drug');
 const hotDeal = require('./scripts/hotDeal');
 
 schedule.scheduleJob('0 22 * * *', function () {
-    drug()
+    drug();
 });
 schedule.scheduleJob('0 11 * * *', function () {
-    drug()
+    drug();
 });
 // schedule.scheduleJob('*/10 * * * *', function () {
 //     hotDeal()
 // });
 
 app.get('/', (req, res) => {
-  hotDeal();
     res.send('Hello World!');
 });
 app.listen(port, () => {
