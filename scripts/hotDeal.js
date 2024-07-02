@@ -48,7 +48,7 @@ module.exports = function () {
                 const DataFilter = crawlingResult.filter(item => !hotDealData.includes(item));
                 console.log('new hotdeal data : ', DataFilter);
             } else {
-                await client.sAdd('hotDealData', result);
+                await client.sAdd('hotDealData', crawlingResult);
                 console.log('Successfully hotDealData Set UP!');
             }
             await client.disconnect();
