@@ -14,42 +14,67 @@ module.exports = function () {
         .then(async function (html) {
             // console.log(html.data);
             const $ = cheerio.load(html.data);
-            const crawlingResult = [];
+            const crawlingResult = {};
             /* 해당 페이지 게시물의 class 명칭을 확인해 업로드 순서의 유저 게시물만 필터링 */
-            const tableLength = $(
+            const postLength = $(
                 '#board_list > div > div.board_main.theme_default > table > tbody > tr'
             ).length;
-            for (let index = 1; index <= tableLength; index++) {
-                let tableClassName = $(
+            for (let index = 1; index <= postLength; index++) {
+                let postClassName = $(
                     '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
                     'd(' + index + ')'
                 )
                     .attr()
                     .class;
-                if (tableClassName === 'table_body blocktarget') {
-                    /* 해당 게시물의 id 값을 추출 및 배열처리*/
+                if (postClassName === 'table_body blocktarget') {
+                    /* 해당 게시물의 id, 제목 값을 추출 및 배열처리*/
                     let postID = $(
                         '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
                         'd(' + index + ') > td.id'
                     )
                         .text()
                         .replace(/\s/g, '');
-                    crawlingResult.push(postID);
+                    let postTitle = $(
+                        '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
+                        'd(' + index + ') > td.subject > div > a.deco'
+                    ).text();
+                    crawlingResult[postID] = postTitle;
                 }
             }
             /* 핫딜 데이터 컬렉션 호출 */
             await client
                 .on('error', err => console.error('Redis Client Error', err))
                 .connect();
-            const hotDealCollection = await client.SCARD('hotDealData');
-            /* 해당 컬렉션 존재 시 저장되지 않은 크롤링 값을 신규 게시물로 판별해 메시지 전송 및 저장, 미존재 시 크롤링 값 전체 저장 */
-            if (hotDealCollection) {
-                const hotDealData = await client.sMembers('hotDealData');
-                const DataFilter = crawlingResult.filter(item => !hotDealData.includes(item));
-                console.log('new hotdeal data : ', DataFilter);
+            const hotDealData = await client.sMembers('hotDealData');
+            /* 해당 컬렉션 존재 시 저장되지 않은 크롤링 값을 신규 게시물로 판별해 메시지 전송 및 업데이트, 미존재 시 크롤링 값 전체 저장 */
+            if (hotDealData.length != 0) {
+                const FilterNewData = Object
+                    .keys(crawlingResult)
+                    .filter(item => !hotDealData.includes(item));
+                if (FilterNewData.length != 0) {
+                    const newData = FilterNewData.reduce((acc, key) => {
+                        acc[key] = crawlingResult[key]
+                        return acc;
+                    }, {});
+                    for (const key in newData) {
+                        const embed = new MessageBuilder()
+                            .setTitle(newData[key])
+                            .setAuthor(
+                                "HotDeal",
+                                'https://img.ruliweb.com/img/2016/icon/ruliweb_icon_144_144.png'
+                            )
+                            .setURL('https://bbs.ruliweb.com/market/board/1020/read/' + key) // 메시지 클릭 시 해당 게시물 주소로 연결
+                            .setColor('#181696')
+                            .setTimestamp();
+                        await hook.send(embed);
+                    }
+                    await client.del('hotDealData');
+                    await client.sAdd('hotDealData', Object.keys(crawlingResult));
+                    console.log('Successfully hotDealData Update!');
+                }
             } else {
-                await client.sAdd('hotDealData', crawlingResult);
-                console.log('Successfully hotDealData Set UP!');
+                await client.sAdd('hotDealData', Object.keys(crawlingResult));
+                console.log('Successfully hotDealData Setup!');
             }
             await client.disconnect();
         })
