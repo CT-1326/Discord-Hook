@@ -3,17 +3,21 @@ Auto alert with discord webHook
 # Get Start
     > npm install
 
-    > node index
+    > npm run start
 # Prerequisites
-    NodeJS V15.2.0
+    Node.js V16.14.0
 
     Fly.io
-    
-    Upstash-Redis
+
+    Redis V4
 # Open-source libraries
 https://github.com/matthew1232/discord-webhook-node
 
-    Discord webhook sending
+    Discord webhook
+
+https://github.com/node-schedule/node-schedule
+
+    Node.js Scheduler
     
 https://github.com/axios/axios
 
@@ -21,14 +25,23 @@ https://github.com/axios/axios
 
 https://github.com/cheeriojs/cheerio
     
-    Crawling web
-        
-https://github.com/luin/ioredis
+    Scraping web
+
+https://github.com/expressjs/express
+
+    express Framework
+
+https://github.com/remy/nodemon
+
+    nodemon
+
+https://github.com/motdotla/dotenv
+
+    environment variables
+
+https://github.com/redis/node-redis
 
     Node.js Redis
-    
-https://github.com/node-schedule/node-schedule
-
-    Node.js Scheduler
+        
 # License
 This project is licensed under the MIT License - see the [Discord_Hook/LICENSE](LICENSE)
