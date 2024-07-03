@@ -17,7 +17,6 @@ schedule.scheduleJob('*/10 * * * *', function () {
 });
 
 app.get('/', (req, res) => {
-    hotDeal();
     res.send('Hello World!');
 });
 app.listen(port, () => {
