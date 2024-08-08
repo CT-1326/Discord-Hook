@@ -79,7 +79,7 @@ module.exports = function () {
             await client.disconnect();
         })
         .catch(function (err) {
-            console.error('From hotDeal:', err);
+            console.error('From hotDeal:', err.message);
             if (err.message.indexOf("timeout") !== 0) {
                 const embed = new MessageBuilder()
                     .setTitle('핫딜 알림에 문제가 발생하였습니다.')
