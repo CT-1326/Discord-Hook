@@ -10,7 +10,7 @@ const client = redis.createClient({
 module.exports = function () {
     hook.setUsername('HotDeal Alert'); // BOT 이름 작성
     axios
-        .get('https://bbs.ruliweb.com/market/board/1020', {timeout: 10}) // 해당 페이지 크롤링 연결 타임을 제한하여 무한 연결 상태 방지
+        .get('https://bbs.ruliweb.com/market/board/1020', {timeout: 3000}) // 해당 페이지 크롤링 연결 타임을 제한하여 무한 연결 상태 방지
         .then(async function (html) {
             // console.log(html.data);
             const $ = cheerio.load(html.data);
