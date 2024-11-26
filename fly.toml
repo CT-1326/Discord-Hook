@@ -6,11 +6,9 @@
 app = 'discord-hook'
 primary_region = 'nrt'
 
-[build]
-
 [http_service]
   internal_port = 3000
-  processes = ['app']
 
 [[vm]]
   size = 'shared-cpu-1x'
+  memory = "256mb"
