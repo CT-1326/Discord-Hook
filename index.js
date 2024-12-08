@@ -18,6 +18,7 @@ schedule.scheduleJob('*/10 * * * *', function () {
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
+    // hotDeal();
 });
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

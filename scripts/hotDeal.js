@@ -10,7 +10,7 @@ const client = redis.createClient({
 module.exports = function () {
     hook.setUsername('HotDeal Alert'); // BOT 이름 작성
     axios
-        .get('https://bbs.ruliweb.com/market/board/1020', {timeout: 3000}) // 해당 페이지 크롤링 연결 타임을 제한하여 무한 연결 상태 방지
+        .get('https://bbs.ruliweb.com/market/board/1020', {timeout: 3000}) // 해당 페이지 스크래핑 연결 타임을 제한하여 무한 연결 상태 방지
         .then(async function (html) {
             // console.log(html.data);
             const $ = cheerio.load(html.data);
@@ -27,7 +27,7 @@ module.exports = function () {
                     .attr()
                     .class;
                 if (postClassName === 'table_body blocktarget') {
-                    /* 해당 게시물의 id, 제목 값을 추출 및 배열처리*/
+                    /* 해당 게시물의 id, 제목 값 파싱처리 */
                     let postID = $(
                         '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
                         'd(' + index + ') > td.id'
@@ -37,7 +37,11 @@ module.exports = function () {
                     let postTitle = $(
                         '#board_list > div > div.board_main.theme_default > table > tbody > tr:nth-chil' +
                         'd(' + index + ') > td.subject > div > a.deco'
-                    ).text();
+                    )
+                        .contents()
+                        .filter((_, el) => el.type === 'text') // 텍스트 노드만 선택
+                        .text()
+                        .trim();
                     crawlingResult[postID] = postTitle;
                 }
             }
@@ -46,7 +50,7 @@ module.exports = function () {
                 .on('error', err => console.error('Redis Client Error', err))
                 .connect();
             const hotDealData = await client.sMembers('hotDealData');
-            /* 해당 컬렉션 존재 시 저장되지 않은 크롤링 값을 신규 게시물로 판별해 메시지 전송 및 업데이트, 미존재 시 크롤링 값 전체 저장 */
+            /* 해당 컬렉션 존재 시 저장되지 않은 스크래핑 값을 신규 게시물로 판별해 메시지 전송 및 업데이트, 미존재 시 스크래핑 값 전체 저장 */
             if (hotDealData.length != 0) {
                 const FilterNewData = Object
                     .keys(crawlingResult)
