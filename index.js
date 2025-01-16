@@ -13,9 +13,9 @@ schedule.scheduleJob('0 22 * * *', function () {
 // schedule.scheduleJob('0 11 * * *', function () {
 //     drug();
 // });
-// schedule.scheduleJob('*/10 * * * *', function () {
-//     hotDeal();
-// });
+schedule.scheduleJob('*/10 * * * *', function () {
+    hotDeal();
+});
 
 schedule.scheduleJob('0 9 * * *', function () {
     jpJob();
