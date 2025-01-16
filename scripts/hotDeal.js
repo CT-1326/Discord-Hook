@@ -50,7 +50,7 @@ module.exports = function () {
                 .on('error', err => console.error('Redis Client Error', err))
                 .connect();
             const hotDealData = await client.sMembers('hotDealData');
-            /* 해당 컬렉션 존재 시 저장되지 않은 스크래핑 값을 신규 게시물로 판별해 메시지 전송 및 업데이트, 미존재 시 스크래핑 값 전체 저장 */
+            /* 해당 컬렉션 존재 시 저장되지 않은 스크래핑 값을 신규 게시물로 판별해 메시지 전송 및 업데이트 */
             if (hotDealData.length != 0) {
                 const FilterNewData = Object
                     .keys(crawlingResult)
@@ -76,7 +76,7 @@ module.exports = function () {
                     await client.sAdd('hotDealData', Object.keys(crawlingResult));
                     console.log('Successfully hotDealData Update!');
                 }
-            } else {
+            } else { /* 컬렉션이 존재하지 않을 경우 스크래핑 값 전체 저장 */
                 await client.sAdd('hotDealData', Object.keys(crawlingResult));
                 console.log('Successfully hotDealData Setup!');
             }
@@ -88,7 +88,7 @@ module.exports = function () {
                 const embed = new MessageBuilder()
                     .setTitle('핫딜 알림에 문제가 발생하였습니다.')
                     .setAuthor(
-                        "알림봇",
+                        "에러 알림",
                         'https://img.ruliweb.com/img/2016/icon/ruliweb_icon_144_144.png'
                     )
                     .setColor('#FF0000')
