@@ -17,7 +17,7 @@ schedule.scheduleJob('*/10 * * * *', function () {
     hotDeal();
 });
 
-schedule.scheduleJob('0 9 * * *', function () {
+schedule.scheduleJob('0 24 * * *', function () {
     jpJob();
 });
 
