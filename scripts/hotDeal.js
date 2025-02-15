@@ -7,6 +7,12 @@ const client = redis.createClient({
     url: process.env.REDIS_URL || 'redis://localhost:6379'
 }); // redis 연동
 
+/* 핫딜 데이터 컬렉션 호출 */
+client.on('error', err => console.error('Redis Client Error', err));
+(async () => {
+    await client.connect();
+})();
+
 module.exports = function () {
     hook.setUsername('HotDeal Alert'); // BOT 이름 작성
     axios
@@ -45,10 +51,6 @@ module.exports = function () {
                     crawlingResult[postID] = postTitle;
                 }
             }
-            /* 핫딜 데이터 컬렉션 호출 */
-            await client
-                .on('error', err => console.error('Redis Client Error', err))
-                .connect();
             const hotDealData = await client.sMembers('hotDealData');
             /* 해당 컬렉션 존재 시 저장되지 않은 스크래핑 값을 신규 게시물로 판별해 메시지 전송 및 업데이트 */
             if (hotDealData.length != 0) {
@@ -80,7 +82,6 @@ module.exports = function () {
                 await client.sAdd('hotDealData', Object.keys(crawlingResult));
                 console.log('Successfully hotDealData Setup!');
             }
-            await client.disconnect();
         })
         .catch(function (err) {
             console.error('From hotDeal:', err.message);

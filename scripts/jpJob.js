@@ -39,6 +39,12 @@ let config = {
     data : data
 };
 
+/* jpJOB 데이터 컬렉션 호출 */
+client.on('error', err => console.error('Redis Client Error', err));
+(async () => {
+    await client.connect();
+})();
+
 module.exports = function () {
     hook.setUsername('JP Alert'); // BOT 이름 작성
     axios(config)
@@ -52,10 +58,6 @@ module.exports = function () {
                 let postTitle = `[${getData[index].etc01}] ${getData[index].etc02} - ${getData[index].subject}`;
                 Result[postID] = postTitle;
             }
-            /* JP 데이터 컬렉션 호출 */
-            await client
-                .on('error', err => console.error('Redis Client Error', err))
-                .connect();
             const jpJobData = await client.sMembers('jpJobData');
             /* 해당 컬렉션 존재 시 저장되지 않은 값을 신규 게시물로 판별해 메시지 전송 및 업데이트*/
             if (jpJobData.length != 0) {
@@ -87,7 +89,6 @@ module.exports = function () {
                 await client.sAdd('jpJobData', Object.keys(Result));
                 console.log('Successfully jpJobData Setup!');
             }
-            await client.disconnect();
         })
         .catch(function (err) {
             console.error('From jpJob:', err.message);
