@@ -66,7 +66,7 @@ async function R_hotDeal() {
             console.log('Successfully hotDealData Setup!');
         }
     } catch (err) {
-        console.error('From hotDeal:', err.message);
+        console.error('From R_hotDeal:', err.message);
         if (err.message.indexOf("timeout") !== 0) {
             const embed = new MessageBuilder()
                 .setTitle('핫딜 알림에 문제가 발생하였습니다.')
@@ -86,8 +86,8 @@ async function Q_hotDeal() {
         const html = await axios.get('https://quasarzone.com/bbs/qb_saleinfo', {timeout: 3000});
         const $ = cheerio.load(html.data);
         const crawlingResult = {};
-        const postLength = $('#frmSearch > div > div.list-board-wrap > div.market-type-list.market-info-type-list.relative > table > tbody > tr').length;
         /* 핫딜 페이지 게시물의 id, 제목 값 파싱처리 */
+        const postLength = $('#frmSearch > div > div.list-board-wrap > div.market-type-list.market-info-type-list.relative > table > tbody > tr').length;
         for (let index = 1; index <= postLength; index++) {
             let postID = $('#frmSearch > div > div.list-board-wrap > div.market-type-list.market-info-type-list.relative > table > tbody > tr:nth-child(' +
                 index + ') > td:nth-child(2) > div > div.market-info-list-cont > p > a').attr('href').split('/').pop();
@@ -126,7 +126,7 @@ async function Q_hotDeal() {
             console.log('Successfully qHotDealData Setup!');
         }
     } catch (err) {
-        console.error('From qHotDeal:', err.message);
+        console.error('From Q_hotDeal:', err.message);
         if (err.message.indexOf("timeout") !== 0) {
             const embed = new MessageBuilder()
                 .setTitle('핫딜 알림에 문제가 발생하였습니다.')
