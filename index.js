@@ -23,7 +23,6 @@ schedule.scheduleJob('0 0 * * *', function () {
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
-    jpJob();
 });
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
