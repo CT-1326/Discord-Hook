@@ -17,6 +17,7 @@ ENV NODE_ENV="production"
 FROM base as build
 
 # Install packages needed to build node modules
+RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python3
 
