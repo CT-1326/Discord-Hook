@@ -17,9 +17,9 @@ schedule.scheduleJob('*/10 * * * *', function () {
     hotDeal();
 });
 
-schedule.scheduleJob('0 0 * * *', function () {
-    jpJob();
-});
+// schedule.scheduleJob('0 0 * * *', function () {
+//     jpJob();
+// });
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
