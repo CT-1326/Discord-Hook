@@ -94,6 +94,13 @@ async function Q_hotDeal() {
         const $ = cheerio.load(html.data);
         const crawlingResult = {};
 
+        /* 웹 사이트 아이콘 이미지 가져오기 */
+        const iconUrl =
+            $('link[rel="icon"]').first().attr('href') ||
+            $('meta[property="og:image"]').attr('content') ||
+            'https://quasarzone.com/favicon.ico';
+        const finalIconUrl = new URL(iconUrl, 'https://quasarzone.com').href;
+
         /* 기본 테이블 내부의 행을 시도 */
         let rows = $('#frmSearch .list-board-wrap table tbody tr');
         if (!rows.length) rows = $('table.market-type-list tbody tr');
@@ -128,10 +135,7 @@ async function Q_hotDeal() {
                 for (const key in newData) {
                     const embed = new MessageBuilder()
                         .setTitle(newData[key])
-                        .setAuthor(
-                            "HotDeal",
-                            'https://img2.quasarzone.com/level/c5449a659000c04b0c54f45a023a1d97.png'
-                        )
+                        .setAuthor("HotDeal", finalIconUrl)
                         .setURL('https://quasarzone.com/bbs/qb_saleinfo/views/' + key)
                         .setColor('#181696')
                         .setTimestamp();
