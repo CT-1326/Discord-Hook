@@ -94,13 +94,6 @@ async function Q_hotDeal() {
         const $ = cheerio.load(html.data);
         const crawlingResult = {};
 
-        /* 웹 사이트 아이콘 이미지 가져오기 */
-        const iconUrl =
-            $('link[rel="icon"]').first().attr('href') ||
-            $('meta[property="og:image"]').attr('content') ||
-            'https://quasarzone.com/favicon.ico';
-        const finalIconUrl = new URL(iconUrl, 'https://quasarzone.com').href;
-
         /* 기본 테이블 내부의 행을 시도 */
         let rows = $('#frmSearch .list-board-wrap table tbody tr');
         if (!rows.length) rows = $('table.market-type-list tbody tr');
@@ -150,7 +143,6 @@ async function Q_hotDeal() {
             console.log('Successfully qHotDealData Setup!');
         }
     } catch (err) {
-        console.log(err.response);
         console.error('From Q_hotDeal:', err.response?.status || err.message, err.message);
         if (err.message.indexOf("timeout") !== 0) {
             const embed = new MessageBuilder()
@@ -168,5 +160,5 @@ async function Q_hotDeal() {
 
 module.exports = async function () {
     await R_hotDeal();
-    await Q_hotDeal();
+    // await Q_hotDeal();
 };
