@@ -96,6 +96,7 @@ async function Q_hotDeal() {
 
         /* 기본 테이블 내부의 행을 시도 */
         let rows = $('#frmSearch .list-board-wrap table tbody tr');
+        if (!rows.length) rows = $('table.market-type-list tbody tr');
         if (!rows.length) rows = $('.list-board-wrap table tbody tr');
 
         if (rows.length) {
