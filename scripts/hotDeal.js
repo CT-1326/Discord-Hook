@@ -150,6 +150,7 @@ async function Q_hotDeal() {
             console.log('Successfully qHotDealData Setup!');
         }
     } catch (err) {
+        console.log(err.response);
         console.error('From Q_hotDeal:', err.response?.status || err.message, err.message);
         if (err.message.indexOf("timeout") !== 0) {
             const embed = new MessageBuilder()
