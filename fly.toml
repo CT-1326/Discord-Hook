@@ -3,12 +3,12 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'discord-hook'
-primary_region = 'nrt'
+app = "discord-hook"
+primary_region = "lax"
 
 [http_service]
-  internal_port = 3000
+internal_port = 3_000
 
 [[vm]]
-  size = 'shared-cpu-1x'
-  memory = "256mb"
+memory = "256mb"
+size = "shared-cpu-1x"
