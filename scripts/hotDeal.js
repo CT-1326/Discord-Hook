@@ -128,7 +128,7 @@ async function Q_hotDeal() {
                 for (const key in newData) {
                     const embed = new MessageBuilder()
                         .setTitle(newData[key])
-                        .setAuthor("HotDeal", finalIconUrl)
+                        .setAuthor("HotDeal", 'https://img2.quasarzone.com/level/c5449a659000c04b0c54f45a023a1d97.png')
                         .setURL('https://quasarzone.com/bbs/qb_saleinfo/views/' + key)
                         .setColor('#181696')
                         .setTimestamp();
