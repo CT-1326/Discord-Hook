@@ -1,5 +1,7 @@
 const {Webhook, MessageBuilder} = require('discord-webhook-node');
 const axios = require('axios');
+// axios보다 브라우저에 가까운 요청 헤더와 재시도 처리를 제공하는 HTTP 클라이언트
+const {gotScraping} = require('got-scraping');
 const cheerio = require('cheerio');
 const redis = require('redis');
 const client = redis.createClient({
@@ -83,15 +85,21 @@ async function R_hotDeal() {
 
 async function Q_hotDeal() {
     try {
-        const html = await axios.get('https://quasarzone.com/bbs/qb_saleinfo', {
-            timeout: 3000,
-            headers: { // 웹사이트에서 봇으로 인식하여 차단하는 경우를 방지하기 위해 브라우저에서 요청하는 것처럼 헤더를 설정
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
-                'Referer': 'https://quasarzone.com/',
-                'Accept-Language': 'ko-KR,ko;q=0.9'
+        // Cloudflare 차단에 대응하기 위해 got-scraping으로 게시판 HTML을 요청
+        const html = await gotScraping({
+            url: 'https://quasarzone.com/bbs/qb_saleinfo',
+            timeout: {
+                request: 10000
+            },
+            retry: {
+                limit: 1
+            },
+            headers: {
+                referer: 'https://quasarzone.com/',
+                'accept-language': 'ko-KR,ko;q=0.9'
             }
         });
-        const $ = cheerio.load(html.data);
+        const $ = cheerio.load(html.body);
         const crawlingResult = {};
 
         /* 기본 테이블 내부의 행을 시도 */
@@ -143,7 +151,11 @@ async function Q_hotDeal() {
             console.log('Successfully qHotDealData Setup!');
         }
     } catch (err) {
-        console.error('From Q_hotDeal:', err.response?.status || err.message, err.message);
+        console.error(
+            'From Q_hotDeal:',
+            err.response?.statusCode || err.response?.status || err.message,
+            err.message
+        );
         if (err.message.indexOf("timeout") !== 0) {
             const embed = new MessageBuilder()
                 .setTitle('핫딜 알림에 문제가 발생하였습니다.')
@@ -159,6 +171,6 @@ async function Q_hotDeal() {
 }
 
 module.exports = async function () {
-    await R_hotDeal();
-    // await Q_hotDeal();
+    // await R_hotDeal();
+    await Q_hotDeal();
 };

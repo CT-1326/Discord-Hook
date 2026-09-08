@@ -4,7 +4,7 @@
 #
 
 app = "discord-hook"
-primary_region = "lax"
+primary_region = "nrt"
 
 [http_service]
 internal_port = 3_000
