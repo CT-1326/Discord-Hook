@@ -68,7 +68,7 @@ async function R_hotDeal() {
             console.log('Successfully hotDealData Setup!');
         }
     } catch (err) {
-        console.error('From R_hotDeal:', err.message);
+        console.error('From R_hotDeal:', err.response?.status || err.message, err.message);
         if (err.message.indexOf("timeout") !== 0) {
             const embed = new MessageBuilder()
                 .setTitle('핫딜 알림에 문제가 발생하였습니다.')
@@ -151,11 +151,7 @@ async function Q_hotDeal() {
             console.log('Successfully qHotDealData Setup!');
         }
     } catch (err) {
-        console.error(
-            'From Q_hotDeal:',
-            err.response?.statusCode || err.response?.status || err.message,
-            err.message
-        );
+        console.error('From Q_hotDeal:', err.response?.status || err.message, err.message);
         if (err.message.indexOf("timeout") !== 0) {
             const embed = new MessageBuilder()
                 .setTitle('핫딜 알림에 문제가 발생하였습니다.')
