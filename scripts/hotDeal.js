@@ -171,6 +171,6 @@ async function Q_hotDeal() {
 }
 
 module.exports = async function () {
-    // await R_hotDeal();
+    await R_hotDeal();
     await Q_hotDeal();
 };
