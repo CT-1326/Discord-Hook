@@ -5,7 +5,7 @@ Auto alert with discord webHook
 
     > npm run start
 # Prerequisites
-    Node.js V16.14.0
+    Node.js V18
 
     Fly.io
 
